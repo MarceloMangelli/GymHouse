@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - GymHouse</title>
+    <meta name="description" content="Crie sua conta na GymHouse e acesse conteúdos exclusivos sobre treinos.">
+    <meta name="author" content="Marcelo Mangelli">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://gym-house-two.vercel.app/login-registro/register.html">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Registro - GymHouse">
+    <meta property="og:description" content="Crie sua conta na GymHouse e acesse conteúdos exclusivos sobre treinos.">
+    <meta property="og:url" content="https://gym-house-two.vercel.app/login-registro/register.html">
+    <meta property="og:image" content="https://gym-house-two.vercel.app/images/marcelo.webp">
+    <meta property="og:locale" content="pt_BR">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Registro - GymHouse">
+    <meta name="twitter:description" content="Crie sua conta na GymHouse e acesse conteúdos exclusivos sobre treinos.">
+    <meta name="twitter:image" content="https://gym-house-two.vercel.app/images/marcelo.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <div class="auth-bg"></div>
+
+    <main id="main-content" class="auth-grid">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 class="auth-title">Criar Conta</h1>
+                <p class="auth-subtitle">Preencha os dados para se registrar</p>
+            </div>
+            <form class="auth-form" novalidate>
+                <div class="field">
+                    <label class="field-label" for="email">Email</label>
+                    <input class="field-input" type="email" name="email" id="email" oninput="onChangeEmail()" placeholder="seu@email.com" autocomplete="email" aria-describedby="email-required-error email-invalid-error">
+                    <div class="error" id="email-required-error" role="alert">*Email é obrigatório</div>
+                    <div class="error" id="email-invalid-error" role="alert">*Email é inválido</div>
+                </div>
+                <div class="field">
+                    <label class="field-label" for="password">Senha</label>
+                    <input class="field-input" type="password" name="password" id="password" oninput="onChangePassword()" placeholder="sua senha" autocomplete="new-password" aria-describedby="password-required-error password-min-length-error">
+                    <div class="error" id="password-required-error" role="alert">*Senha é obrigatória</div>
+                    <div class="error" id="password-min-length-error" role="alert">*Senha deve ter no mínimo 6 caracteres</div>
+                </div>
+                <div class="field">
+                    <label class="field-label" for="confirm-password">Confirmar senha</label>
+                    <input class="field-input" type="password" name="confirm-password" id="confirm-password" oninput="onChangeConfirmPassword()" placeholder="confirme sua senha" autocomplete="new-password" aria-describedby="password-doesnt-match-error">
+                    <div class="error" id="password-doesnt-match-error" role="alert">*Confirmação deve ser igual à senha</div>
+                </div>
+                <div class="error auth-error" id="auth-error" role="alert" aria-live="polite"></div>
+                <button type="button" class="auth-btn" id="register-button" disabled onclick="register()">Registrar</button>
+                <button type="button" class="auth-btn" onclick="goToLogin()">Já tem uma conta? <span style="color: #84cc16;">Login</span></button>
+            </form>
+            <div class="auth-links">
+                <a href="../index.html" class="auth-link">Voltar ao início</a>
+            </div>
+        </div>
+        <div class="auth-brand">
+            <div class="auth-brand-content">
+                <p class="auth-logo">Gym<span class="accent">House</span></p>
+                <p class="auth-tagline">Treinos personalizados<br>para resultados reais</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js" defer></script>
+    <script src="../js/firebase-config.js" defer></script>
+    <script src="../js/register.js" defer></script>
+    <script src="../js/loading.js" defer></script>
+</body>
+</html>

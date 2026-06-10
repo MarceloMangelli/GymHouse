@@ -1,8 +1,12 @@
 firebase.auth().onAuthStateChanged((user) => {
   document.body.style.visibility = "visible";
   const logoutBtn = document.getElementById("logout-button");
+  const logoutBtnMobile = document.getElementById("logout-button-mobile");
   if (logoutBtn) {
     logoutBtn.style.display = user ? "block" : "none";
+  }
+  if (logoutBtnMobile) {
+    logoutBtnMobile.style.display = user ? "block" : "none";
   }
   const ctaBtn = document.getElementById("cta-button");
   if (ctaBtn && user) {

@@ -175,6 +175,23 @@ img { display: block; max-width: 100%; }
   display: none;
 }
 
+.nav-logout-mobile {
+  display: none;
+  list-style: none;
+}
+
+.nav-logout-mobile .nav-link {
+  color: var(--brand);
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
 .hamburger {
   display: block;
   margin-left: auto;
@@ -907,5 +924,12 @@ button[disabled] {
 
   .header-actions {
     display: none;
+  }
+
+  .nav-logout-mobile {
+    display: block;
+    border-top: 1px solid var(--border);
+    margin-top: 6px;
+    padding-top: 6px;
   }
 }

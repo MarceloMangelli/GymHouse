@@ -171,16 +171,37 @@ img { display: block; max-width: 100%; }
   background: var(--brand-dim);
 }
 
-#logout-button {
+.btn-login {
+  padding: 8px 20px;
+  border: 1px solid var(--brand);
+  border-radius: 8px;
+  background: var(--brand);
+  color: var(--bg);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition);
+}
+
+.btn-login:hover {
+  background: #70b013;
+}
+
+#logout-button,
+#login-button {
   display: none;
 }
 
-.nav-logout-mobile {
+.nav-logout-mobile,
+.nav-login-mobile {
   display: none;
   list-style: none;
 }
 
-.nav-logout-mobile .nav-link {
+.nav-logout-mobile .nav-link,
+.nav-login-mobile .nav-link {
   color: var(--brand);
   width: 100%;
   text-align: left;
@@ -926,6 +947,7 @@ button[disabled] {
     display: none;
   }
 
+  .nav-login-mobile,
   .nav-logout-mobile {
     display: block;
     border-top: 1px solid var(--border);

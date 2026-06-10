@@ -24,11 +24,11 @@ function logout() {
 
 document.addEventListener("DOMContentLoaded", function () {
   const hamburger = document.getElementById("hamburger");
-  const navLinks = document.getElementById("nav-links");
+  const nav = document.querySelector(".nav");
 
-  if (hamburger && navLinks) {
+  if (hamburger && nav) {
     hamburger.addEventListener("click", function () {
-      const isOpen = navLinks.classList.toggle("open");
+      const isOpen = nav.classList.toggle("open");
       hamburger.setAttribute("aria-expanded", isOpen);
     });
   }

@@ -1,7 +1,9 @@
 firebase.auth().onAuthStateChanged(user => {
     document.body.style.visibility = 'visible';
-    if (user) {
+    if (user && user.emailVerified) {
         window.location.href = '../index.html';
+    } else if (user && !user.emailVerified) {
+        firebase.auth().signOut();
     }
 })
 
@@ -32,7 +34,13 @@ function login() {
     hideAuthError();
     firebase.auth().signInWithEmailAndPassword(
         form.email().value , form.password().value
-    ).then(responde => {
+    ).then(() => {
+        const user = firebase.auth().currentUser;
+        if (!user.emailVerified) {
+            return firebase.auth().signOut().then(() => {
+                throw { code: 'email-not-verified' };
+            });
+        }
         hideLoading();
         window.location.href = '../index.html';
     }).catch(error => {
@@ -41,9 +49,27 @@ function login() {
     });
 }
 
+function loginWithGoogle() {
+    showLoading();
+    hideAuthError();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(result => {
+        hideLoading();
+        window.location.href = '../index.html';
+    }).catch(error => {
+        hideLoading();
+        if (error.code !== 'auth/popup-closed-by-user') {
+            showAuthError(getErrorMessage(error));
+        }
+    });
+}
+
 function getErrorMessage(error) {
     if (error.code == 'auth/invalid-login-credentials'){
         return 'Email ou senha inválidos';
+    }
+    if (error.code == 'email-not-verified') {
+        return 'Confirme seu email antes de fazer login. Verifique sua caixa de entrada.';
     }
     return error.message;
 }
@@ -67,9 +93,6 @@ function togglePasswordErrors() {
 function toggleButtonsDisable() {
     const emailValid = isEmailValid();
     form.recoverPasswordButton().disabled = !emailValid;
-
-    const passwordValid = isPasswordValid();
-    form.loginButton().disabled = !emailValid || !passwordValid;
 }
 
 function isEmailValid() {
@@ -103,7 +126,7 @@ function hideAuthError() {
 function showAuthSuccess(message) {
     const el = document.getElementById('auth-error');
     if (el) {
-        el.textContent = message;
+        el.innerHTML = message;
         el.className = 'error auth-error success-visivel';
     }
 }
@@ -112,7 +135,7 @@ const form = {
     email: () => document.getElementById("email"),
     emailInvalidError: () => document.getElementById("email-invalid-error"),
     emailRequiredError: () => document.getElementById("email-required-error"),
-    loginButton: () => document.getElementById("login-button"),
+    loginButton: () => document.getElementById("form-login-button"),
     password: () => document.getElementById("password"),
     passwordRequiredError: () => document.getElementById("password-required-error"),
     recoverPasswordButton: () => document.getElementById("recover-password-button"),

@@ -249,6 +249,44 @@ button[disabled] {
   cursor: not-allowed;
 }
 
+/* ----- DIVIDER ----- */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 2px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ----- GOOGLE BUTTON ----- */
+.auth-btn-google {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.auth-btn-google:hover {
+  background: #1f1f1f;
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
 /* ----- LINKS ----- */
 .auth-links {
   text-align: center;
@@ -263,6 +301,19 @@ button[disabled] {
 
 .auth-link:hover {
   color: var(--brand);
+}
+
+button.auth-link {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+button.auth-link[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .auth-separator {

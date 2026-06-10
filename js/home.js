@@ -1,5 +1,9 @@
 firebase.auth().onAuthStateChanged((user) => {
   document.body.style.visibility = "visible";
+  if (user && !user.emailVerified) {
+    firebase.auth().signOut();
+    return;
+  }
   const logoutBtn = document.getElementById("logout-button");
   const logoutBtnMobile = document.getElementById("logout-button-mobile");
   const loginBtn = document.getElementById("login-button");

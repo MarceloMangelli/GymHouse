@@ -52,11 +52,14 @@
                     <div class="error" id="password-required-error" role="alert">*Senha é obrigatória</div>
                 </div>
                 <div class="error auth-error" id="auth-error" role="alert" aria-live="polite"></div>
-                <button type="button" class="auth-btn" id="recover-password-button" disabled onclick="recoverPassword()">Esqueci a senha</button>
-                <button type="button" class="auth-btn" id="login-button" disabled onclick="login()">Entrar</button>
+                <button type="button" class="auth-btn" id="form-login-button" onclick="login()">Entrar</button>
                 <button type="button" class="auth-btn" onclick="register()">Registrar</button>
+                <div class="auth-divider"><span>ou</span></div>
+                <button type="button" class="auth-btn-google" onclick="loginWithGoogle()">Entrar com Google</button>
             </form>
             <div class="auth-links">
+                <button type="button" class="auth-link" id="recover-password-button" disabled onclick="recoverPassword()">Esqueci a senha</button>
+                <span class="auth-separator">|</span>
                 <a href="../index.html" class="auth-link">Voltar ao início</a>
             </div>
         </div>

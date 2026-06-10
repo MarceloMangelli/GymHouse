@@ -1,6 +1,6 @@
 firebase.auth().onAuthStateChanged(user => {
     document.body.style.visibility = 'visible';
-    if (user) {
+    if (user && user.emailVerified) {
         window.location.href = '../index.html';
     }
 })
@@ -61,8 +61,13 @@ function register() {
     firebase.auth().createUserWithEmailAndPassword(
         form.email().value, form.password().value
     ).then(() => {
+        return firebase.auth().currentUser.sendEmailVerification();
+    }).then(() => {
+        return firebase.auth().signOut();
+    }).then(() => {
         hideLoading();
-        window.location.href = '../index.html';
+        form.registerButton().disabled = true;
+        showAuthSuccess('Um email de confirmação foi enviado para <strong>' + form.email().value + '</strong>. Verifique sua caixa de entrada e faça login após confirmar.');
     }).catch(error => {
         hideLoading();
         showAuthError(getErrorMessage(error));
@@ -97,6 +102,14 @@ function hideAuthError() {
     if (el) {
         el.textContent = '';
         el.classList.remove('error-visivel');
+    }
+}
+
+function showAuthSuccess(message) {
+    const el = document.getElementById('auth-error');
+    if (el) {
+        el.innerHTML = message;
+        el.className = 'error auth-error success-visivel';
     }
 }
 

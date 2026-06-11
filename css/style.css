@@ -974,8 +974,15 @@ button[disabled] {
     display: none;
   }
 
-  .nav-login-mobile,
+  .nav-login-mobile {
+    display: block;
+    border-top: 1px solid var(--border);
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+
   .nav-logout-mobile {
+    display: none;
     border-top: 1px solid var(--border);
     margin-top: 6px;
     padding-top: 6px;

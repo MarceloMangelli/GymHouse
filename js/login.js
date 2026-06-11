@@ -4,10 +4,18 @@ try {
     if (typeof firebase !== 'undefined' && firebase.auth) {
         firebase.auth().onAuthStateChanged(user => {
             if (user && user.emailVerified) {
-                window.location.href = '../index.html';
+                window.location.replace('../index.html');
             } else if (user && !user.emailVerified) {
                 firebase.auth().signOut();
             }
+        });
+
+        firebase.auth().getRedirectResult().then(result => {
+            if (result.user) {
+                window.location.replace('../index.html');
+            }
+        }).catch(error => {
+            showAuthError(getErrorMessage(error));
         });
     }
 } catch (e) {}
@@ -58,15 +66,7 @@ function loginWithGoogle() {
     showLoading();
     hideAuthError();
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(result => {
-        hideLoading();
-        window.location.href = '../index.html';
-    }).catch(error => {
-        hideLoading();
-        if (error.code !== 'auth/popup-closed-by-user') {
-            showAuthError(getErrorMessage(error));
-        }
-    });
+    firebase.auth().signInWithRedirect(provider);
 }
 
 function getErrorMessage(error) {

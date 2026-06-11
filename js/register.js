@@ -4,7 +4,7 @@ try {
     if (typeof firebase !== 'undefined' && firebase.auth) {
         firebase.auth().onAuthStateChanged(user => {
             if (user && user.emailVerified) {
-                window.location.href = '../index.html';
+                window.location.replace('../index.html');
             } else if (user && !user.emailVerified) {
                 firebase.auth().signOut();
             }

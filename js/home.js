@@ -7,29 +7,41 @@ function showContent() {
 
 showContent();
 
-function handleAuth(user) {
-  if (!user) return;
-  if (!user.emailVerified) {
-    firebase.auth().signOut();
-    return;
-  }
+function updateUI(user) {
   const logoutBtn = document.getElementById("logout-button");
   const logoutBtnMobile = document.getElementById("logout-button-mobile");
   const loginBtn = document.getElementById("login-button");
   const loginBtnMobile = document.getElementById("login-button-mobile");
-  if (logoutBtn) logoutBtn.style.display = "block";
-  if (logoutBtnMobile) logoutBtnMobile.style.display = "block";
-  if (loginBtn) loginBtn.style.display = "none";
-  if (loginBtnMobile) loginBtnMobile.style.display = "none";
   const ctaBtn = document.getElementById("cta-button");
-  if (ctaBtn) ctaBtn.href = "#fundamentos";
+
+  if (user && user.emailVerified) {
+    if (logoutBtn) logoutBtn.style.display = "block";
+    if (logoutBtnMobile) logoutBtnMobile.style.display = "block";
+    if (loginBtn) loginBtn.style.display = "none";
+    if (loginBtnMobile) loginBtnMobile.style.display = "none";
+    if (ctaBtn) ctaBtn.href = "#fundamentos";
+  } else {
+    if (logoutBtn) logoutBtn.style.display = "none";
+    if (logoutBtnMobile) logoutBtnMobile.style.display = "none";
+    if (loginBtn) loginBtn.style.display = "block";
+    if (loginBtnMobile) loginBtnMobile.style.display = "block";
+    if (ctaBtn) ctaBtn.href = "login-registro/login.html";
+  }
+
+  if (user && !user.emailVerified) {
+    firebase.auth().signOut();
+  }
 }
 
 try {
   if (typeof firebase !== "undefined" && firebase.auth) {
-    firebase.auth().onAuthStateChanged(handleAuth);
+    firebase.auth().onAuthStateChanged(updateUI);
+  } else {
+    updateUI(null);
   }
-} catch (e) {}
+} catch (e) {
+  updateUI(null);
+}
 
 function logout() {
   firebase

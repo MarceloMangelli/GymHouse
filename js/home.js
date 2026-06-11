@@ -5,11 +5,9 @@ function showContent() {
   if (loadingOverlay) loadingOverlay.remove();
 }
 
-const fallbackTimer = setTimeout(showContent, 3000);
+showContent();
 
 function handleAuth(user) {
-  clearTimeout(fallbackTimer);
-  showContent();
   if (!user) return;
   if (!user.emailVerified) {
     firebase.auth().signOut();
@@ -30,14 +28,8 @@ function handleAuth(user) {
 try {
   if (typeof firebase !== "undefined" && firebase.auth) {
     firebase.auth().onAuthStateChanged(handleAuth);
-  } else {
-    clearTimeout(fallbackTimer);
-    showContent();
   }
-} catch (e) {
-  clearTimeout(fallbackTimer);
-  showContent();
-}
+} catch (e) {}
 
 function logout() {
   firebase

@@ -59,7 +59,6 @@ body {
   color: var(--text);
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
-  visibility: hidden;
 }
 
 ::selection {

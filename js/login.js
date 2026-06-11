@@ -1,28 +1,16 @@
-function showContent() {
-    document.body.style.visibility = 'visible';
-}
-
-const fallbackTimer = setTimeout(showContent, 3000);
+document.body.style.visibility = 'visible';
 
 try {
     if (typeof firebase !== 'undefined' && firebase.auth) {
         firebase.auth().onAuthStateChanged(user => {
-            clearTimeout(fallbackTimer);
-            showContent();
             if (user && user.emailVerified) {
                 window.location.href = '../index.html';
             } else if (user && !user.emailVerified) {
                 firebase.auth().signOut();
             }
         });
-    } else {
-        clearTimeout(fallbackTimer);
-        showContent();
     }
-} catch (e) {
-    clearTimeout(fallbackTimer);
-    showContent();
-}
+} catch (e) {}
 
 function onChangeEmail() {
     toggleButtonsDisable();

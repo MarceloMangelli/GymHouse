@@ -43,7 +43,7 @@ This project was built to apply real-world concepts such as authentication, user
 ## 📷 Preview
 
 <p align="center">
-  <img src="imgs\readme-img\img-site.png" alt="GymHouse Preview"/>
+  <img src="images/readme/img-site.png" alt="GymHouse Preview"/>
 </p>
 
 ---

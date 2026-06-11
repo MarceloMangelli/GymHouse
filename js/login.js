@@ -34,8 +34,8 @@ function login() {
     hideAuthError();
     firebase.auth().signInWithEmailAndPassword(
         form.email().value , form.password().value
-    ).then(() => {
-        const user = firebase.auth().currentUser;
+    ).then(result => {
+        const user = result.user;
         if (!user.emailVerified) {
             return firebase.auth().signOut().then(() => {
                 throw { code: 'email-not-verified' };
@@ -69,7 +69,7 @@ function getErrorMessage(error) {
         return 'Email ou senha inválidos';
     }
     if (error.code == 'email-not-verified') {
-        return 'Confirme seu email antes de fazer login. Verifique sua caixa de entrada.';
+        return 'Você ainda não confirmou seu email. Acesse sua caixa de entrada (ou spam) e clique no link de verificação que enviamos.';
     }
     return error.message;
 }
@@ -126,7 +126,7 @@ function hideAuthError() {
 function showAuthSuccess(message) {
     const el = document.getElementById('auth-error');
     if (el) {
-        el.innerHTML = message;
+        el.textContent = message;
         el.className = 'error auth-error success-visivel';
     }
 }

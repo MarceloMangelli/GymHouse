@@ -1,5 +1,7 @@
 firebase.auth().onAuthStateChanged((user) => {
   document.body.style.visibility = "visible";
+  const overlay = document.getElementById("loading-overlay");
+  if (overlay) overlay.remove();
   if (user && !user.emailVerified) {
     firebase.auth().signOut();
     return;

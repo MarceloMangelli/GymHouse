@@ -2,85 +2,12 @@
    LOGIN / REGISTER — GymHouse Auth
    ========================================== */
 
-:root {
-  --bg: #080808;
-  --bg-elevated: #111111;
-  --bg-card: #161616;
-  --bg-glass: rgba(17, 17, 17, 0.85);
-  --brand: #84cc16;
-  --brand-dim: rgba(132, 204, 22, 0.15);
-  --brand-glow: rgba(132, 204, 22, 0.25);
-  --text: #ffffff;
-  --text-secondary: #a3a3a3;
-  --text-muted: #767676;
-  --border: #1f1f1f;
-  --radius: 12px;
-  --radius-lg: 20px;
-  --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  --font: "Poppins", system-ui, sans-serif;
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
 body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
-  -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  visibility: hidden;
 }
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-}
-
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 8px;
-  z-index: 1000;
-  padding: 8px 16px;
-  background: var(--brand);
-  color: var(--bg);
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 0 0 8px 8px;
-  transition: top 0.2s;
-  text-decoration: none;
-}
-.skip-link:focus {
-  top: 0;
-  outline: none;
-  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--brand);
-}
-
-::selection {
-  background: var(--brand);
-  color: var(--bg);
-}
-
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
 /* ----- BACKGROUND ----- */
 .auth-bg {
@@ -319,27 +246,6 @@ button.auth-link[disabled] {
 .auth-separator {
   margin: 0 8px;
   color: var(--text-muted);
-}
-
-/* ----- LOADING ----- */
-.loading {
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  z-index: 100;
-  backdrop-filter: blur(4px);
-}
-
-.loading label {
-  color: white;
-  font-size: 24px;
-  font-weight: 700;
 }
 
 /* ----- MOBILE (auth pages use single-column always) ----- */

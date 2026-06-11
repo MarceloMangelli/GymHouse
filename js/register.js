@@ -2,6 +2,8 @@ firebase.auth().onAuthStateChanged(user => {
     document.body.style.visibility = 'visible';
     if (user && user.emailVerified) {
         window.location.href = '../index.html';
+    } else if (user && !user.emailVerified) {
+        firebase.auth().signOut();
     }
 })
 
@@ -60,14 +62,14 @@ function register() {
     hideAuthError();
     firebase.auth().createUserWithEmailAndPassword(
         form.email().value, form.password().value
-    ).then(() => {
-        return firebase.auth().currentUser.sendEmailVerification();
+    ).then(result => {
+        return result.user.sendEmailVerification();
     }).then(() => {
         return firebase.auth().signOut();
     }).then(() => {
         hideLoading();
         form.registerButton().disabled = true;
-        showAuthSuccess('Um email de confirmação foi enviado para <strong>' + form.email().value + '</strong>. Verifique sua caixa de entrada e faça login após confirmar.');
+        showAuthSuccess('Um email de confirmação foi enviado para ' + form.email().value + '. Verifique sua caixa de entrada (não esqueça de olhar o spam) e faça login após confirmar.');
     }).catch(error => {
         hideLoading();
         showAuthError(getErrorMessage(error));
@@ -108,7 +110,7 @@ function hideAuthError() {
 function showAuthSuccess(message) {
     const el = document.getElementById('auth-error');
     if (el) {
-        el.innerHTML = message;
+        el.textContent = message;
         el.className = 'error auth-error success-visivel';
     }
 }

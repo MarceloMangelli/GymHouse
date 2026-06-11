@@ -42,8 +42,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;">
 </head>
 <body>
+    <div class="loading-overlay" id="loading-overlay" aria-hidden="true">
+        <div class="loading-spinner"></div>
+    </div>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
     <header class="header" id="header">
@@ -55,7 +59,7 @@
                     <li><a href="index.html" class="nav-link">Início</a></li>
                     <li><a href="#sobre" class="nav-link">Sobre</a></li>
                     <li><a href="#fundamentos" class="nav-link">Fundamentos</a></li>
-                    <li><a href="#" class="nav-link">Treinos</a></li>
+                    <li><a href="index.html#fundamentos" class="nav-link">Treinos</a></li>
                     <li class="nav-login-mobile"><a href="login-registro/login.html" id="login-button-mobile" class="nav-link">Entrar</a></li>
                     <li class="nav-logout-mobile"><button type="button" onclick="logout()" id="logout-button-mobile" class="nav-link">Sair</button></li>
                 </ul>

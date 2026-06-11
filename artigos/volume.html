@@ -49,6 +49,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/artigo.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.youtube.com; connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
@@ -56,14 +57,19 @@
     <header class="header" id="header">
         <div class="header-inner">
             <a href="../index.html" class="logo" aria-label="GymHouse - Página inicial">Gym<span class="accent">House</span></a>
+            <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menu" aria-controls="nav-links" aria-expanded="false">☰</button>
             <nav class="nav" aria-label="Navegação principal">
                 <ul class="nav-list" id="nav-links">
                     <li><a href="../index.html" class="nav-link">Início</a></li>
                     <li><a href="../index.html#sobre" class="nav-link">Sobre</a></li>
                     <li><a href="../index.html#fundamentos" class="nav-link">Fundamentos</a></li>
-                    <li><a href="#" class="nav-link">Treinos</a></li>
+                    <li><a href="../index.html#fundamentos" class="nav-link">Treinos</a></li>
+                    <li class="nav-logout-mobile"><button type="button" onclick="logout()" id="logout-button-mobile" class="nav-link">Sair</button></li>
                 </ul>
             </nav>
+            <div class="header-actions">
+                <button type="button" onclick="logout()" class="btn-logout" id="logout-button">Sair</button>
+            </div>
         </div>
     </header>
 
@@ -251,5 +257,22 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js" defer></script>
     <script src="../js/firebase-config.js" defer></script>
     <script src="../js/auth-guard.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const hamburger = document.getElementById("hamburger");
+            const nav = document.querySelector(".nav");
+            if (hamburger && nav) {
+                hamburger.addEventListener("click", function () {
+                    const isOpen = nav.classList.toggle("open");
+                    hamburger.setAttribute("aria-expanded", isOpen);
+                });
+            }
+        });
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                window.location.href = "../login-registro/login.html";
+            });
+        }
+    </script>
 </body>
 </html>

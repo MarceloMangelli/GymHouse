@@ -1,8 +1,17 @@
-firebase.auth().onAuthStateChanged((user) => {
+const loadingOverlay = document.getElementById("loading-overlay");
+
+function showContent() {
   document.body.style.visibility = "visible";
-  const overlay = document.getElementById("loading-overlay");
-  if (overlay) overlay.remove();
-  if (user && !user.emailVerified) {
+  if (loadingOverlay) loadingOverlay.remove();
+}
+
+const fallbackTimer = setTimeout(showContent, 3000);
+
+function handleAuth(user) {
+  clearTimeout(fallbackTimer);
+  showContent();
+  if (!user) return;
+  if (!user.emailVerified) {
     firebase.auth().signOut();
     return;
   }
@@ -10,23 +19,25 @@ firebase.auth().onAuthStateChanged((user) => {
   const logoutBtnMobile = document.getElementById("logout-button-mobile");
   const loginBtn = document.getElementById("login-button");
   const loginBtnMobile = document.getElementById("login-button-mobile");
-  if (logoutBtn) {
-    logoutBtn.style.display = user ? "block" : "none";
-  }
-  if (logoutBtnMobile) {
-    logoutBtnMobile.style.display = user ? "block" : "none";
-  }
-  if (loginBtn) {
-    loginBtn.style.display = user ? "none" : "block";
-  }
-  if (loginBtnMobile) {
-    loginBtnMobile.style.display = user ? "none" : "block";
-  }
+  if (logoutBtn) logoutBtn.style.display = "block";
+  if (logoutBtnMobile) logoutBtnMobile.style.display = "block";
+  if (loginBtn) loginBtn.style.display = "none";
+  if (loginBtnMobile) loginBtnMobile.style.display = "none";
   const ctaBtn = document.getElementById("cta-button");
-  if (ctaBtn && user) {
-    ctaBtn.href = "#fundamentos";
+  if (ctaBtn) ctaBtn.href = "#fundamentos";
+}
+
+try {
+  if (typeof firebase !== "undefined" && firebase.auth) {
+    firebase.auth().onAuthStateChanged(handleAuth);
+  } else {
+    clearTimeout(fallbackTimer);
+    showContent();
   }
-});
+} catch (e) {
+  clearTimeout(fallbackTimer);
+  showContent();
+}
 
 function logout() {
   firebase

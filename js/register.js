@@ -1,11 +1,28 @@
-firebase.auth().onAuthStateChanged(user => {
+function showContent() {
     document.body.style.visibility = 'visible';
-    if (user && user.emailVerified) {
-        window.location.href = '../index.html';
-    } else if (user && !user.emailVerified) {
-        firebase.auth().signOut();
+}
+
+const fallbackTimer = setTimeout(showContent, 3000);
+
+try {
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+        firebase.auth().onAuthStateChanged(user => {
+            clearTimeout(fallbackTimer);
+            showContent();
+            if (user && user.emailVerified) {
+                window.location.href = '../index.html';
+            } else if (user && !user.emailVerified) {
+                firebase.auth().signOut();
+            }
+        });
+    } else {
+        clearTimeout(fallbackTimer);
+        showContent();
     }
-})
+} catch (e) {
+    clearTimeout(fallbackTimer);
+    showContent();
+}
 
 function onChangeEmail() {
     const email = form.email().value;

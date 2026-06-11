@@ -1,14 +1,32 @@
+function showContent() {
+    document.body.style.visibility = 'visible';
+}
+
 function authGuard() {
-    firebase.auth().onAuthStateChanged((user) => {
-        if (!user) {
-            window.location.href = '../login-registro/login.html';
-        } else if (!user.emailVerified) {
-            firebase.auth().signOut();
-            window.location.href = '../login-registro/login.html';
+    const fallbackTimer = setTimeout(showContent, 3000);
+    try {
+        if (typeof firebase !== 'undefined' && firebase.auth) {
+            firebase.auth().onAuthStateChanged((user) => {
+                clearTimeout(fallbackTimer);
+                if (!user) {
+                    showContent();
+                    window.location.href = '../login-registro/login.html';
+                } else if (!user.emailVerified) {
+                    showContent();
+                    firebase.auth().signOut();
+                    window.location.href = '../login-registro/login.html';
+                } else {
+                    showContent();
+                }
+            });
         } else {
-            document.body.style.visibility = 'visible';
+            clearTimeout(fallbackTimer);
+            showContent();
         }
-    })
+    } catch (e) {
+        clearTimeout(fallbackTimer);
+        showContent();
+    }
 }
 
 authGuard();

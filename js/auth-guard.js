@@ -3,18 +3,23 @@ function authGuard() {
     if (overlay) overlay.remove();
     document.body.style.visibility = "visible";
 
+    if (typeof firebase === "undefined" || !firebase.auth) {
+        window.location.replace("../login-registro/login.html");
+        return;
+    }
+
     try {
-        if (typeof firebase !== "undefined" && firebase.auth) {
-            firebase.auth().onAuthStateChanged((user) => {
-                if (!user) {
-                    window.location.replace("../login-registro/login.html");
-                } else if (!user.emailVerified) {
-                    firebase.auth().signOut();
-                    window.location.replace("../login-registro/login.html");
-                }
-            });
-        }
-    } catch (e) {}
+        firebase.auth().onAuthStateChanged((user) => {
+            if (!user) {
+                window.location.replace("../login-registro/login.html");
+            } else if (!user.emailVerified) {
+                firebase.auth().signOut();
+                window.location.replace("../login-registro/login.html");
+            }
+        });
+    } catch (e) {
+        window.location.replace("../login-registro/login.html");
+    }
 }
 
 authGuard();

@@ -976,7 +976,6 @@ button[disabled] {
 
   .nav-login-mobile,
   .nav-logout-mobile {
-    display: block;
     border-top: 1px solid var(--border);
     margin-top: 6px;
     padding-top: 6px;

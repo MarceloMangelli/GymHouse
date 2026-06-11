@@ -33,15 +33,13 @@ function updateUI(user) {
   }
 }
 
+updateUI(null);
+
 try {
   if (typeof firebase !== "undefined" && firebase.auth) {
     firebase.auth().onAuthStateChanged(updateUI);
-  } else {
-    updateUI(null);
   }
-} catch (e) {
-  updateUI(null);
-}
+} catch (e) {}
 
 function logout() {
   firebase
